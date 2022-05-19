@@ -1,7 +1,6 @@
 pipeline{
     agent none
     environment {
-        //Use Pipeline Utility Steps plugin to read information from pom.xml into env variables
         VERSION = readMavenPom().getVersion()
     }
     stages{
@@ -12,8 +11,9 @@ pipeline{
                 }
             }
             steps{
-                echo "${VERSION}"
                 echo "${BRANCH_NAME}"
+                echo "Version number is"
+                echo "${VERSION}"
                 echo 'compile maven app'
                 sh 'mvn compile'
             }
