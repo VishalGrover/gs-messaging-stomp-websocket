@@ -10,22 +10,26 @@ pipeline{
 
     stages{
         stage('build'){
-            if (${BRANCH_NAME} == 'main') {
-                NEW_VERSION = ${VERSION} + "_" + ${GIT_COMMIT}
-            } else {
-                NEW_VERSION = ${VERSION} + "_SNAPSHOT"
-            }
+
             agent {
                 docker {
                   image 'maven:3.6.3-jdk-11-slim'
                 }
             }
             steps{
-                echo "Branch name is ${BRANCH_NAME}"
-                echo "Version number is ${VERSION}"
-                echo "${NEW_VERSION}"
-                echo 'compile maven app'
-                sh 'mvn compile'
+                script{
+                    if (${BRANCH_NAME} == 'main') {
+                        NEW_VERSION = ${VERSION} + "_" + ${GIT_COMMIT}
+                    } else {
+                        NEW_VERSION = ${VERSION} + "_SNAPSHOT"
+                    }
+                    echo "Branch name is ${BRANCH_NAME}"
+                    echo "Version number is ${VERSION}"
+                    echo "${NEW_VERSION}"
+                    echo 'compile maven app'
+                    sh 'mvn compile'
+                }
+
             }
         }
         stage('test'){
