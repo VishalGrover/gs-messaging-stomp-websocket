@@ -2,7 +2,7 @@ pipeline{
     agent none
     environment {
         //Use Pipeline Utility Steps plugin to read information from pom.xml into env variables
-        VERSION = ${project.version}
+        VERSION = readMavenPom().getVersion()
     }
     stages{
         stage('build'){
