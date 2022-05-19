@@ -5,6 +5,7 @@ pipeline{
         //Use Pipeline Utility Steps plugin to read information from pom.xml into env variables
         VERSION = readMavenPom().getVersion()
         NEW_VERSION = "${VERSION}" + "_" + "${GIT_COMMIT}"
+        NEW_VERSION_2 = "${${BRANCH_NAME} == "main" ? ${VERSION} : ${VERSION} + '_' + 'SNAPSHOT'"
     }
 
     stages{
@@ -19,6 +20,7 @@ pipeline{
                 echo "Branch name is ${BRANCH_NAME}"
                 echo "Version number is ${VERSION}"
                 echo "${NEW_VERSION}"
+                echo "${NEW_VERSION_2}"
                 echo 'compile maven app'
                 sh 'mvn compile'
             }
