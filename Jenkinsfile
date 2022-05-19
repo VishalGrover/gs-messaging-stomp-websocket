@@ -10,7 +10,7 @@ pipeline{
             steps{
                 echo "${BRANCH_NAME}"
                 echo "Version number is"
-
+                def VERSION = ${project.version}
                 echo "${VERSION}"
                 echo 'compile maven app'
                 sh 'mvn compile'
