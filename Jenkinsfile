@@ -1,7 +1,7 @@
 pipeline{
     agent none
     environment {
-        VERSION = readMavenPom().getVersion()
+        VERSION = ${mvn help:evaluate -Dexpression=project.version -q -DforceStdou}
     }
     stages{
         stage('build'){
