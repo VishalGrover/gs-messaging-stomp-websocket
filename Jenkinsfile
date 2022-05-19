@@ -1,5 +1,9 @@
 pipeline{
     agent none
+    environment {
+        //Use Pipeline Utility Steps plugin to read information from pom.xml into env variables
+        VERSION = ${project.version}
+    }
     stages{
         stage('build'){
             agent {
@@ -8,11 +12,16 @@ pipeline{
                 }
             }
             steps{
+                echo "${VERSION}"
+                echo "${BRANCH_NAME}"
                 echo 'compile maven app'
                 sh 'mvn compile'
             }
         }
         stage('test'){
+            when {
+                branch "release"
+            }
             agent {
                 docker {
                   image 'maven:3.6.3-jdk-11-slim'
@@ -39,6 +48,9 @@ pipeline{
             }
         }
         stage('Docker Build Image and Publish') {
+          when {
+              branch "release"
+          }
           agent any
           steps {
             script {
