@@ -10,7 +10,7 @@ pipeline{
 
     stages{
         stage('build'){
-            if (env.BRANCH_NAME == 'main') {
+            if (${BRANCH_NAME} == 'main') {
                 NEW_VERSION = ${VERSION} + "_" + ${GIT_COMMIT}
             } else {
                 NEW_VERSION = ${VERSION} + "_SNAPSHOT"
