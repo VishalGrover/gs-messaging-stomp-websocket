@@ -4,7 +4,7 @@ pipeline{
     environment {
         //Use Pipeline Utility Steps plugin to read information from pom.xml into env variables
         VERSION = readMavenPom().getVersion()
-        NEW_VERSION = "${VERSION}" + "_SNAPSHOT"
+        NEW_VERSION = "${VERSION}" + "_" + "${GIT_COMMIT}"
     }
 
     stages{
