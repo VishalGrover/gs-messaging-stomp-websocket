@@ -1,5 +1,6 @@
 pipeline{
     agent none
+
     stages{
         stage('build'){
             agent {
@@ -10,8 +11,7 @@ pipeline{
             steps{
                 echo "${BRANCH_NAME}"
                 echo "Version number is"
-                def VERSION = ${project.version}
-                echo "${VERSION}"
+                echo "${mvn help:evaluate -Dexpression=${project.version} -q -DforceStdout}"
                 echo 'compile maven app'
                 sh 'mvn compile'
             }
