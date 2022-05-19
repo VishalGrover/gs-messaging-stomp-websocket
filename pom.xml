@@ -9,8 +9,8 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>messaging-stomp-websocket-complete</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>messaging-stomp-websocket</artifactId>
+	<version>0.0.1</version>
 	<name>messaging-stomp-websocket-complete</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
@@ -54,6 +54,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>messaging-stomp-websocket</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

@@ -24,6 +24,9 @@ pipeline{
             }
         }
         stage('package'){
+            when {
+                branch "release"
+            }
             agent {
                 docker {
                   image 'maven:3.6.3-jdk-11-slim'
@@ -32,7 +35,7 @@ pipeline{
             steps{
                 echo 'generating artifacts'
                 sh 'mvn package -DskipTests'
-                archiveArtifacts 'target/*.war'
+                archiveArtifacts 'target/*.jar'
             }
         }
         stage('Docker Build Image and Publish') {
